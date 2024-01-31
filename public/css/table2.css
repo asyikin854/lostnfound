@@ -1,0 +1,132 @@
+table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
+  }
+  
+  table caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
+  }
+  
+  table tr {
+    border: 1px solid #ddd;
+    padding: .35em;
+  }
+  
+  table th,
+  table td {
+    padding: .625em;
+    text-align: center;
+  }
+  
+  table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+  }
+  
+  @media screen and (max-width: 600px) {
+    table {
+      border: 0;
+    }
+  
+    table caption {
+      font-size: 1.3em;
+    }
+    
+    table thead {
+      background-color: aqua;
+      border: none;
+      clip: rect(0 0 0 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      width: 1px;
+      
+    }
+    
+    table tr {
+      border-bottom: 3px solid #ddd;
+      display: block;
+      margin-bottom: .625em;
+    }
+    
+    table td {
+      border-bottom: 1px solid #ddd;
+      display: block;
+      font-size: .8em;
+      text-align: right;
+      background-color: #b4fdff;
+    }
+    
+    table td::before {
+      /*
+      * aria-label has no advantage, it won't be read inside a table
+      content: attr(aria-label);
+      */
+      content: attr(data-label);
+      float: left;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+    
+    table td:last-child {
+      border-bottom: 0;
+    }
+  }
+  
+  /* general styling */
+  body {
+    font-family: "Open Sans", sans-serif;
+    line-height: 1.25;
+  }
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff; /* Background color */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Shadow */
+    z-index: 1; /* Ensure dropdown is above other content */
+}
+
+/* Style the list items */
+.dropdown-menu a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333; /* Text color */
+}
+
+/* Change the background color of the dropdown items on hover */
+.dropdown-menu a:hover {
+    background-color: #f0f0f0; /* Light gray background color */
+}
+
+/* Position the dropdown menu */
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+/* Style the main navigation */
+.nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4; /* Background color */
+}
+
+/* Style the navigation items */
+.nav li {
+    display: inline-block;
+    position: relative;
+}
+
+/* Add spacing between navigation items */
+.nav li + li {
+    margin-left: 20px;
+}

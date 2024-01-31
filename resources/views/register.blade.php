@@ -62,16 +62,17 @@
     <div class="container">
     <form action="{{ route('registers')}}" class="register-form" method="POST">
         @csrf
+        <h2>Add New Branch Admin</h2>
         <input type="text" name="adminID" placeholder="Admin ID" required>
         <input type="password" name="password" placeholder="Password" required>
         <select name="admin_location" id="admin_location" >
-            <option selected disabled>Please select location</option>
-            <option value="Taman Perling">Taman Perling</option>
-            <option value="Taman Tampoi Utama">Taman Tampoi Utama</option>
+                <option disabled selected>Please select location</option>    
+                 <option value="Shell, RnR Gurun(U)">Shell, RnR Gurun(U)</option>
+                 <option value="Shell, RnR Gurun(S)" disabled>Shell, RnR Gurun(S)</option> 
         </select>
         <input type="submit" value="Register"><br>
 
-        <center><a href="{{ route('image.admin')}}">Cancel</a></center>
+        <center><a href="{{ route('image.index')}}">Cancel</a></center>
     </form>
 </div>
 </body>

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin</title>
     <style>
-        body {
+         body {
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
             margin: 0;
@@ -59,14 +59,13 @@
         .error-message {
             color: red;
             text-align: center;
-
         }
     </style>
 </head>
 <body>
-    
     <div class="login-container">
-        <a href="{{ route('image.create')}}">Back</a>
+        
+        <center><img src="{{ asset('images/logo lnf.jpg')}}" alt="Logo" width="250"></center><br>
         <h2>Admin Login</h2>
         @if ($errors->has('login'))
             <div class="error-message">{{ $errors->first('login') }}</div>
@@ -79,8 +78,8 @@
             
         <input type="submit" value="Login">
         <br>
-        <center><a href="{{ route('register')}}">Register</a></center>
     </form>
+    <a href="{{ route('image.create')}}"><button>Back</button></a>
 </div>
 </body>
 </html>

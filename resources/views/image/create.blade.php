@@ -4,10 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Report Form</title>
+    <link rel="stylesheet" href="{{ asset('css/table.css') }} ">
     <style>
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-        }
         nav {
             background-color: #333; 
         }
@@ -31,42 +29,17 @@
         a:hover {
             color: #ffc107; 
         }
-        table {
-            border-collapse: collapse;
-            width: 40%;
-            margin-bottom: 20px;
-        }
-
-        td {
-            border: 1px solid #ddd;
-            padding: 10px;
-            text-align: left;
-        }
-
-        th {
-            text-align: center;
-            background-color: #f2f2f2;
-        }
-        .none {
-            color: #333;
-            text-decoration: none;
-
-        }
-
-        tr:hover {
-            background-color: #f5f5f5;
-        }
         input[type="text"] {
-            width: 100%;
-            padding: 10px;
+            width: 80%;
+            padding:10px;
             border: 1px solid #ccc;
             border-radius: 5px;
             box-sizing: border-box;
             font-size: 16px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
         select {
-            width: 100%;
+            width: 50%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -81,16 +54,16 @@
         }
 
         label[for="image"] {
-            background-color: #4b41db;
+            background-color:darkturquoise;
             color: white;
-            padding: 10px 20px;
+            padding: 10px 10px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
         }
         label[for="image"]:hover {
-            background-color: #7620d8;
+            background-color:turquoise;
         }
         input[type="submit"] {
             background-color: #4caf50;
@@ -103,23 +76,31 @@
         input[type="submit"]:hover {
             background-color: #45a049;
         }
-
+        table {
+            background-color: #f0f8ff;;
+        }
 
     </style>
 </head>
 <body>
-    <a class="none" href="{{ route('image.admin')}}">Admin</a>
+<div class="container"> 
     <nav class="navi">
     <ul>
+        <li><a href="{{ route('image.admin')}}">Admin</a></li>
         <li><a href="{{ route('image.create')}}">Report Missing Item</a></li>
         <li><a href="{{ route('image.display')}}">Search Missing Item</a></li>
     </ul>
     </nav>
+    @if(session('success'))
+    <center><div class="alert alert-success">
+        {{ session('success') }}</center>
+        </div>
+        @endif
     <form action="{{ route('image.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
-    <center><table style="border-spacing:10px">
+    <center><table style="background-color: #f0f8ff; width: 70%" class="table table-bordered table-striped table-responsive-stack" id="tableOne">
         <tr>
-            <th colspan="2"><h3>Report Form</h3></th>
+            <th colspan="2" style="background-color: #4CAF50; color:white"><center><h2>Report Form</h2></center></th>
         </tr>
         <tr>
             <th>Name:</th>
@@ -131,26 +112,30 @@
             <th>Item Name:</th>
             <td><input type="text" name="itemName" placeholder="Item Name" required></td></tr>
         <tr>
-            <th>Description:</th>
-            <td><input type="text" name="itemDesc" placeholder="Ex: Jumpa di tandas lelaki" size="40" required></td></tr>
+            <th>Item Location:</th>
+            <td><select name="itemDesc" id="itemDesc">
+                    <option selected disabled>Select Item Location</option>
+                    <option value="Forecourt">Forecourt</option>
+                    <option value="In shop">In shop</option>
+                    <option value="Prayer Room">Prayer Room</option>
+                    <option value="Toilet">Toilet</option>    
+            </select></td></tr>
         <tr>
             <th>Item Image:</th>
-            <td><label for="image">Select Image<input type="file" name="image" id="image" class="inputfile" required></td></tr>
+            <td><label for="image"> <input type="file" name="image" id="image" class="inputfile" required accept="image/*" capture="camera"></td></tr>
         <tr>
             <th>Select location:</th>
             <td><select name="location" id="" required>
             <option disabled selected>Please select location</option>    
-             <option value="Taman Perling">Taman Perling</option>
-             <option value="Taman Tampoi Utama">Taman Tampoi Utama</option>           
+             <option value="Shell, RnR Gurun(U)">Shell, RnR Gurun(U)</option>
+             <option value="Shell, RnR Gurun(S)" disabled>Shell, RnR Gurun(S)</option>           
         </select></td></tr>
-        <tr><th align="center" colspan="2"><input type="submit" value="Submit"></th></tr>
+        <tr><th align="center" colspan="2"><center><input type="submit" value="Submit"></center></th></tr>
         </table></center>
     </form>
-    @if(session('success'))
-    <center><div class="alert alert-success">
-        {{ session('success') }}
-    </div></center>
-@endif
 
+
+</div>
+<script src="{{ asset('js/table.js')}}" ></script>
 </body>
 </html>

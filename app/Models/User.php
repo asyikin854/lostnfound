@@ -22,8 +22,11 @@ class User extends Authenticatable
         'adminID',
         'password',
         'admin_location',
+        'super_admin',
     ];
-
+    protected $casts = [
+        'super_admin' => 'boolean', // Cast to boolean if it's stored as boolean in the database
+    ];  
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -33,7 +36,13 @@ class User extends Authenticatable
         'password',
     ];
     public function branchAdminDisplay() {
-        return $this->hasMany(Image::class, 'admin_location', 'admin_location');  
+        if ($this->super_admin) {
+            // If the user is a super admin, return all images
+            return Image::query();
+        } else {
+            // If the user is not a super admin, return images based on the admin location
+            return $this->hasMany(Image::class, 'location', 'admin_location');
+        }  
     }
 
 }

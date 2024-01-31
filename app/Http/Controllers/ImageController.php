@@ -53,6 +53,25 @@ class ImageController extends Controller
     
         return view('image.display', ['images' => $filteredImages]);
     }
+    public function adminStore(Request $request, $id)
+    {
+        $validatedData = $request->validate([
+            'status' => 'required',
+            'claim_by' => 'required',
+        ]);
+        $image = Image::findOrFail($id);
+
+            // Check if $image is not null before accessing its properties
+            $image->status = $request->status; // Use the null coalescing operator to handle null values
+            $image->claim_by = $request->claim_by;
+            $image->save();
+            // Handle the case where $image is null, e.g., return an error response or log a message
+            return redirect('/image/index')->with('success', 'Updated Successfully');
+        }
+
+        
+
+    
 
 }
 

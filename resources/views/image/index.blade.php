@@ -4,51 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin</title>
+    <link rel="stylesheet" href="{{ asset('css/table2.css')}}">
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        form {
-            margin-bottom: 20px;
-        }
-        input[type="text"], input[type="submit"] {
-            padding: 10px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        input[type="submit"], {
-            background-color: #007bff;
-            color: #fff;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #007bff;
-            color: #fff;
-        }
         td img {
             max-width: 100%;
             height: auto;
@@ -68,29 +25,104 @@
             border: none;
         }
         .button:hover {
-            background-color: #db0e0e60;
+            background-color: #f72d2d;
+        }
+        .buttonNav {
+            background-color: #ff7300;
+            color: #fff;
+            cursor: pointer;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+        }
+        .buttonNav:hover {
+            background-color: #f3870b;
+        }
+        table input[type="text"] {
+            width: 100%;
+            padding:10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 30%;
+            padding:10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 13px;
+            margin-bottom: 10px;
+            appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16"><path d="M5.93 7.93l3.07 3.07 3.07-3.07 1.41 1.41-4.48 4.48-4.48-4.48 1.41-1.41z" fill="%23333"/></svg>'); /* Add custom dropdown arrow */
+            background-repeat: no-repeat;
+            background-position: right 10px top 50%;
+            background-size: 16px;
         }
     </style>
 </head>
 
 <body>
-    <form action="{{ route('logout') }}" method="POST">
-        @csrf
-        <button type="submit" class="button">Logout</button>
-    </form>
+    @if($superAdmin)
+    <div class="nav">
+        <ul>
+            <li>
+                <a href="{{ route('register')}}"><button class="buttonNav">Add Admin</button></a></li>
+            </li>
+            <li>
+                <a href="{{ route('image.edit')}} "><button class="buttonNav">Edit Profile</button></a>
+            </li>
+            <li><form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="button">Logout</button>
+            </form></li>
+        </ul>
+    </div>
+    @endif
+    @if(!$superAdmin)
+    <div class="nav">
+        <ul>
+            <li>
+                <a href="{{ route('image.edit')}} "><button class="buttonNav">Edit Profile</button></a>
+            </li>
+            <li><form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="button">Logout</button>
+            </form></li>
+        </ul>
+    </div>
+    @endif
     <div class="container">
     <form action="{{ '/image/index' }}" method="GET">
-        <input type="text" name="search" placeholder="Item name...">
-        <input type="submit" value="search">
+        <center><input type="text" name="search" placeholder="Item name...">
+        <input type="submit" value="search" class="button" style="background-color: rgb(48, 60, 236)"></center>
     </form>
     @if(isset($images) && $images->isNotEmpty())
-    <table>
+    <table style="background-color: #ccfcff;">
         <thead>
-            <tr>
+            <tr style="background-color: aqua;" > 
                 <th>Report by:</th>
-                <th>Item Name: </th>
-                <th>Description: </th>
+                <th>I. Name: </th>
+                <th>I. Location: </th>
                 <th>Image: </th>
+                @if($superAdmin)<th>Action</th>
+                <th>Location: </th>@endif
+                <th>Status: </th>
+                <th>Remark: </th>
+                <th>Updated at: </th>
+                <th>&nbsp;</th>
             </tr>
         </thead>
         <tbody>
@@ -100,13 +132,27 @@
                         <td>{{ $image->itemName }} </td>
                         <td>{{ $image->itemDesc }} </td>
                         <td><img src="{{ asset($image->path) }}" alt="" width="250"> </td>
-                        <td>
+                        @if($superAdmin)<td>
                             <form action="{{ route('image.delete', ['id' => $image->id]) }}" method="POST" id="deleteForm_{{ $image->id }}">
                                 @csrf
                                 @method('DELETE')
                                 <button type="button" onclick="confirmDelete({{ $image->id }})" class="button">Delete</button>
                             </form>
                         </td>
+                        <td>{{ $image->location }} </td>@endif
+                        <form action="{{ route('image.admin.store', ['id' => $image->id])}}" method="POST">
+                            @csrf
+                        <td><select name="status" id="status">
+                            <option value="pending" {{ $image->status === 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="claimed" {{ $image->status === 'claimed' ? 'selected' : '' }}>Claimed</option>
+                            <option value="unclaimed" {{ $image->status === 'unclaimed' ? 'selected' : '' }}>Unclaimed</option>
+                            <option value="lost" {{ $image->status === 'lost' ? 'selected' : '' }}>Lost</option>
+                            <option value="stolen" {{ $image->status === 'stolen' ? 'selected' : '' }}>Stolen</option>
+                            </select></td>
+                        <td><input type="text" value="{{ $image->claim_by }}" name="claim_by" placeholder="Eg.Claimer Name"></td>
+                        <td>{{ $image->updated_at }} </td>
+                        <td><center><input type="submit" value="Update" class="button" style="background-color: blue"></center></td>
+                    </form>
                     </tr>   
             @endforeach
         </tbody>

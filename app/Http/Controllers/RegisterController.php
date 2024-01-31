@@ -28,6 +28,6 @@ class RegisterController extends Controller
             'admin_location' => $validatedData['admin_location'],
         ]);
 
-        return redirect()->intended('/image/admin');
+        return redirect()->intended('/image/index')->with('success', 'New Admin Added Successfully');
     }
 }

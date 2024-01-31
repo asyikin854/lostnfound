@@ -14,12 +14,16 @@ Route::post('/image/store', [ImageController::class, 'store'])->name('image.stor
 
 Route::get('/image/display', [ImageController::class, 'display'])->name('image.display');
 
-Route::get('/register', [RegisterController::class, 'register'])->name('register');
-Route::post('/registers', [RegisterController::class, 'registers'])->name('registers');
 Route::get('/image/admin', [LoginController::class, 'login']);
 Route::post('/image/admin', [LoginController::class, 'authenticate'])->name('image.admin');
 Route::middleware(['auth'])->group(function () {
-    Route::get('/image/index', [LoginController::class, 'adminDisplay']);
+    Route::get('/image/index', [LoginController::class, 'adminDisplay'])->name('image.index');
 });
 Route::post('/image/logout', [LoginController::class, 'logout'])->name('logout');
 Route::delete('/image/delete/{id}', [LoginController::class, 'deleteItem'])->name('image.delete');
+Route::post('image/adminStore/{id}', [ImageController::class, 'adminStore'])->name('image.admin.store'); 
+Route::get('/register', [RegisterController::class, 'register'])->name('register');
+Route::post('/registers', [RegisterController::class, 'registers'])->name('registers');
+Route::get('/image/edit', [LoginController::class, 'editAdmin'])->name('image.edit');
+Route::post('/image/update', [LoginController::class ,'updateAdmin'])->name('image.update');
+
