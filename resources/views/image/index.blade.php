@@ -110,9 +110,9 @@
         <input type="submit" value="search" class="button" style="background-color: rgb(48, 60, 236)"></center>
     </form>
     @if(isset($images) && $images->isNotEmpty())
-    <table style="background-color: #ccfcff;">
+    <table style="background-color: #e6f2ff;">
         <thead>
-            <tr style="background-color: aqua;" > 
+            <tr style="background-color: #e6f2ff;" > 
                 <th>Report by:</th>
                 <th>I. Name: </th>
                 <th>I. Location: </th>

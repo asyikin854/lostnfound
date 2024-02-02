@@ -39,7 +39,7 @@ table {
     }
     
     table thead {
-      background-color: aqua;
+      background-color: #d6f5d6;
       border: none;
       clip: rect(0 0 0 0);
       height: 1px;
@@ -61,8 +61,8 @@ table {
       border-bottom: 1px solid #ddd;
       display: block;
       font-size: .8em;
-      text-align: right;
-      background-color: #b4fdff;
+      text-align: center;
+      background-color: white;
     }
     
     table td::before {

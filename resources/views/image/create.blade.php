@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Report Form</title>
-    <link rel="stylesheet" href="{{ asset('css/table.css') }} ">
+    <link rel="stylesheet" href="{{ asset('css/table2.css') }} ">
     <style>
         nav {
             background-color: #333; 
@@ -30,7 +30,7 @@
             color: #ffc107; 
         }
         input[type="text"] {
-            width: 80%;
+            width: 100%;
             padding:10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -39,7 +39,7 @@
             margin-bottom: 5px;
         }
         select {
-            width: 50%;
+            width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -52,7 +52,10 @@
             background-position: right 10px top 50%;
             background-size: 16px;
         }
-
+        input[type="file"] {
+            text-decoration: none;
+            display:initial;
+        }
         label[for="image"] {
             background-color:darkturquoise;
             color: white;
@@ -98,9 +101,9 @@
         @endif
     <form action="{{ route('image.store')}}" method="POST" enctype="multipart/form-data">
     @csrf
-    <center><table style="background-color: #f0f8ff; width: 70%" class="table table-bordered table-striped table-responsive-stack" id="tableOne">
-        <tr>
-            <th colspan="2" style="background-color: #4CAF50; color:white"><center><h2>Report Form</h2></center></th>
+    <table style="background-color: white">
+        <tr align="center">
+            <th colspan="2" style="color:rgb(46, 46, 46)"><center><h2>Report Form</h2></center></th>
         </tr>
         <tr>
             <th>Name:</th>
@@ -122,7 +125,7 @@
             </select></td></tr>
         <tr>
             <th>Item Image:</th>
-            <td><label for="image"> <input type="file" name="image" id="image" class="inputfile" required accept="image/*" capture="camera"></td></tr>
+            <td><label for="image">Picture: <input type="file" name="image" id="image" class="inputfile" required accept="image/*" capture="camera"></td></tr>
         <tr>
             <th>Select location:</th>
             <td><select name="location" id="" required>
@@ -130,8 +133,8 @@
              <option value="Shell, RnR Gurun(U)">Shell, RnR Gurun(U)</option>
              <option value="Shell, RnR Gurun(S)" disabled>Shell, RnR Gurun(S)</option>           
         </select></td></tr>
-        <tr><th align="center" colspan="2"><center><input type="submit" value="Submit"></center></th></tr>
-        </table></center>
+        <tr align="center"><th colspan="2"><input type="submit" value="Submit"></th></tr>
+        </table>
     </form>
 
 

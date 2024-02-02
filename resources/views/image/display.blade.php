@@ -29,7 +29,7 @@
             color: #ffc107; 
         }
         select {
-            width: 40%;
+            width: 100%;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -66,7 +66,7 @@
         <li><a href="{{ route('image.display')}}">Search Missing Item</a></li>
 </ul>
 </nav>
-<h1 align="center">All Lost and Found Item</h1>
+<h2 align="center">All Lost and Found Item</h2>
 <center><form action="{{ route('image.display')}}" method="GET" class="search-form">
     <select name="location" id="location" class="search-select">
         <option selected disabled>Select Location</option>
@@ -77,28 +77,26 @@
 </select>
 </form></center>
 @if(isset($images) && count($images) > 0)
-   <table style="background-color:#f0f8ff;" class="table table-bordered table-striped table-responsive-stack" id="tableOne">
-        <thead style="background-color: #4CAF50; ">
+   <table>
+        <thead>
             <tr>
-                <th style="color:white">Item Name</th>
-                <th style="color:white">Item Location</th>
-                <th style="color:white">Station Location</th>
-                <th style="color:white">Date & Time Found</th>
-                <th style="color:white">Status</th>
-                <th style="color:white">Remark</th>
-                <th style="color:white">Latest update</th>
+                <th>Item Name</th>
+                <th>Item Location</th>
+                <th>Station Location</th>
+                <th>Date & Time Found</th>
+                <th>Status</th>
+                <th>Latest update</th>
             </tr>
         </thead>
         <tbody>
             @foreach($images as $image)
                 <tr>
-                    <td>{{ $image->itemName }}</td>
-                    <td>{{ $image->itemDesc }}</td>
-                    <td>{{ $image->location}} </td>
-                    <td>{{ $image->created_at}} </td>
-                    <td>{{ $image->status}} </td>
-                    <td>{{ $image->claim_by}} </td>
-                    <td>{{ $image->updated_at}} </td>
+                    <td data-label="Item Name">{{ $image->itemName }}</td>
+                    <td data-label="Item Location">{{ $image->itemDesc }}</td>
+                    <td data-label="Station Location">{{ $image->location}} </td>
+                    <td data-label="Date & Time Found">{{ $image->created_at}} </td>
+                    <td data-label="Status">{{ $image->status}} </td>
+                    <td data-label="Latest Update">{{ $image->updated_at}} </td>
                 </tr>
             @endforeach
         </tbody>
